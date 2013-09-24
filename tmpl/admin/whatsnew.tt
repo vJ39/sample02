@@ -1,0 +1,8 @@
+[% WRAPPER 'include/layout.tt' %]
+
+<form action="whatsnew/confirm" method="post">
+    <input type="text" name="title" />
+    <input type="submit" value="登録" />
+</form>
+
+[% END %]

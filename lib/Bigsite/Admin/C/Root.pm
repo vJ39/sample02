@@ -8,4 +8,9 @@ sub index {
     $c->render('index.tt');
 }
 
+sub whatsnew {
+    my ($class, $c) = @_;
+    $c->render('whatsnew.tt' => { params => $c->args });
+}
+
 1;
