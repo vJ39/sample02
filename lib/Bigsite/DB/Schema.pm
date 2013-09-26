@@ -8,9 +8,15 @@ use Teng::Schema::Declare;
 base_row_class 'Bigsite::DB::Row';
 
 table {
-    name 'member';
+    name 'entry';
     pk 'id';
-    columns qw(id name);
+    columns qw(id body ctime);
 };
+
+# table {
+#     name 'member';
+#     pk 'id';
+#     columns qw(id name);
+# };
 
 1;
