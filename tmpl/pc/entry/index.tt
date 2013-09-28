@@ -1,0 +1,23 @@
+[% WRAPPER '/include/layout.tt' %]
+
+[% IF errors %]
+<ul>
+[% FOR error IN errors %]
+<li>[% error.message %]</li>
+[% END %]
+</ul>
+[% END %]
+<form method="post" action="/entry/confirm">
+    <fieldset>
+    <div><textarea name="body"></textarea></div>
+    <div><input type="submit" value="確認" class"btnprimary" /></div>
+    </fieldset>
+</form>
+
+[% FOR entry IN entries %]
+[% entry.id %]. [% entry.body %] [% entry.ctime_obj.strftime('%Y-%m-%d(%a) %H:%M') %]<br />
+[% END %]
+
+[% INCLUDE '/include/pager.tt' WITH pager=pager %]
+
+[% END %]

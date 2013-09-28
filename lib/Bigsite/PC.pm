@@ -24,6 +24,10 @@ __PACKAGE__->load_plugins(
     'Web::CSRFDefender' => {
         post_only => 1,
     },
+    'Web::Validator' => {
+        module => 'Data::Validator',
+        message => {str => 'input type is string!'},
+    },
 );
 
 sub show_error {

@@ -1,0 +1,12 @@
+[% WRAPPER '/include/layout.tt' %]
+
+<form method="post" action="/entry/complete">
+    <fieldset>
+        <div>[% req.param('body') %]</div>
+        <div><input type="submit" value="登録" class"btnprimary" /></div>
+    </fieldset>
+    </fieldset>
+</form>
+<div><a class="btnprimary" href="/entry/back">戻る</a></div>
+
+[% END %]

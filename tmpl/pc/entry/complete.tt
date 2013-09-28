@@ -1,0 +1,6 @@
+[% WRAPPER '/include/layout.tt' %]
+
+<div><p>登録しました。</p></div>
+<div><a href="/entry/" class="btnprimary">TOP</a></div>
+
+[% END %]

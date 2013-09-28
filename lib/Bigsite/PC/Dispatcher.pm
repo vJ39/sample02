@@ -10,6 +10,9 @@ use Module::Functions qw(get_public_functions);
 # define roots here.
 my $router = router {
     # connect '/' => {controller => 'Root', action => 'index', method => 'GET' };
+    connect '/entry/complete' => {
+        controller => 'Entry', action => 'complete', method => 'POST'
+    };
 };
 
 my @controllers = Module::Find::useall('Bigsite::PC::C');
