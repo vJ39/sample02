@@ -5,13 +5,21 @@ use utf8;
 
 sub index {
     my ($class, $c) = @_;
-    $c->validator(rule => +{
+    my $v = $c->validator(rule => +{
         page => {isa => 'Int', default => 1},
     });
-    my $page = $c->req->param('page') || 1;
+#    $v->validate({ page => $c->req->param('page') });
+
+    my $cond;
+    if($v->is_success) {
+        $cond = $v->valid_data;
+    } else {
+        $cond = {page => 1};
+    }
+
     my ($entries, $pager) = $c->db->search_with_pager('entry' => {},
-        {order_by => 'id desc', page => $page, rows => 5});
-    warn ref($entries->[0]);
+        {order_by => 'id desc', rows => 5, %$cond});
+#    warn ref($entries->[0]);
     $c->render('/entry/index.tt', {entries => $entries, pager => $pager});
 }
 
@@ -25,11 +33,11 @@ sub back {
 sub confirm {
     my ($class, $c) = @_;
 
-    $c->validator(rule => +{
-        body => 'Str',
-    });
-#    if(!$c->validator->is_success) {
-#        return $c->render('/entry/index.tt', {errors => $c->validator->get_errors});
+#    my $result = $c->validator(+{
+#        body => {isa => 'Int'},
+#    })->validate();
+#    if(!$result->is_success) {
+#        return $c->render('/entry/index.tt', {errors => $result->get_errors});
 #    }
 
     if(my $body = $c->req->param('body')) {

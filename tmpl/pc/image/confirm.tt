@@ -1,0 +1,13 @@
+[% WRAPPER '/include/layout.tt' %]
+
+<form method="post" action="[% uri_for('/image/complete') %]">
+    <fieldset>
+        <div>[% req.upload('body').tempname %]</div>
+        <div><img src="[% uri_for('/static/image/tmp/' _ rand _ '.png') %]" /></div>
+        <div><input type="submit" value="登録" class"btnprimary" /></div>
+    </fieldset>
+    </fieldset>
+</form>
+<div><a class="btnprimary" href="/image/back">戻る</a></div>
+
+[% END %]

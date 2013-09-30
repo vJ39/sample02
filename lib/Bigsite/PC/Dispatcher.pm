@@ -11,7 +11,9 @@ use Module::Functions qw(get_public_functions);
 my $router = router {
     # connect '/' => {controller => 'Root', action => 'index', method => 'GET' };
     connect '/entry/complete' => {
-        controller => 'Entry', action => 'complete', method => 'POST'
+        controller => 'Entry', action => 'complete', method => 'POST',
+        controller => 'Image', action => 'confirm', method => 'POST',
+        controller => 'Image', action => 'complete', method => 'POST',
     };
 };
 

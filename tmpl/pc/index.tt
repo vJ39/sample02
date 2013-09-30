@@ -1,0 +1,6 @@
+[% WRAPPER '/include/layout.tt' %]
+
+<h1>Hello World!</h1>
+
+[% END %]
+
