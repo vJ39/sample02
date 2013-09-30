@@ -2,6 +2,7 @@ package Bigsite::PC::C::Image;
 use strict;
 use warnings;
 use utf8;
+use Imager;
 use Image::Info qw/image_type/;
 use File::Copy qw/copy move/;
 use String::Random;
@@ -39,13 +40,11 @@ sub confirm {
 
     my $body = $c->req->upload('body');
     open my $fh, '<',  $body->tempname;
-    my $img = image_type($fh);
-    close $fh;
-    my $rand = String::Random->new()->randregex('[a-z0-9]{8}');
+    my $imager = Imager->new()->read(fh => $fh);
+    my $rand = String::Random->new()->randregex('[A-Za-z0-9]{8}');
     my $newname = File::Spec->catfile($c->base_dir, "static/pc/image/tmp/$rand.png");
-    move $body->tempname, $newname;
-    chmod 0644, $newname;
-    die unless($img->{file_type} eq 'PNG');
+    $imager->scale(xpixels => 240)->write(file => $newname, type => 'png');
+    close $fh;
     $c->session->set('body' => $rand);
     return $c->render('/image/confirm.tt', { req => $c->req, rand => $rand });
 }
@@ -56,11 +55,9 @@ sub complete {
         my $oldname = File::Spec->catfile($c->base_dir, "static/pc/image/tmp/$rand.png");
         my $newname = File::Spec->catfile($c->base_dir, "static/pc/image/$rand.png");
         move $oldname, $newname;
-        $c->db->insert(
-            'entry' => {
-                body => $rand,
-            }
-        );
+        $c->db->insert('entry' => {
+            body => $rand,
+        });
         $c->session->remove('body');
     }
     return $c->render('/image/complete.tt');

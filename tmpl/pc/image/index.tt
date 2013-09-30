@@ -17,7 +17,7 @@
 [% FOR entry IN entries %]
 [% entry.id %].
 <img src="[% uri_for('/static/image/' _ entry.body _ '.png') %]" />
-[% entry.ctime_obj.strftime('%Y-%m-%d(%a) %H:%M') %]<br />
+[% # entry.ctime_obj.strftime('%Y-%m-%d(%a) %H:%M') %]
 [% END %]
 
 [% INCLUDE '/include/pager.tt' WITH pager=pager %]
